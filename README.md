@@ -5,7 +5,28 @@
 
 ### Running the Model
 
+```
+python kp-rnn_model/KP-RNN.py
+```
+
 ### Data Preparation
+
+This details how one can prepare a folder containing a sequence of images into usable data for KP-RNN.
+
+In order to prepare new data it is necessary to download and build [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose), if you have not already.
+
+OpenPose should be run with the following options:
+```
+--image_dir ../drive/MyDrive/swing --write_json ../drive/MyDrive/swing_keypoints --face --hand --display 0 --render_pose 0
+```
+
+If the video frames contain multiple people, then run `trim_keypoints.py [insert your path to the folder of JSON keypoints]` to focus on only the pose data from a single person. While it is entirely possible to run KP-RNN on multiple people from the same video, a single instance of the model can only make predictions about the motions of one person at a time.
+
+Once the JSON files are prepared run the following to format the data for use in KP-RNN:
+```
+python kp-rnn_model/data_preparation.py [insert your path to the folder of JSON keypoints]
+```
+The output will be a set of pkl files which should exist in the same folder as `KP-RNN.py`.
 
 ## Everybody Dance Now
 
